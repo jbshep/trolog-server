@@ -18,21 +18,29 @@ def init():
 
 @app.route('/api/start', methods=['POST'])
 def start():
+    key = ''
+    if request.authorization:
+        key = request.authorization.get('username')
+
     f = request.form
-    if not f.get('user') or not f.get('project') or not f.get('label'):
+    if not key or not f.get('user') or not f.get('label'):
         abort(400)
 
-    result = timer.start(f['user'], f['project'], f['label'])
+    result = timer.start(f['user'], key, f['label'])
     return jsonify(result)
 
 
 @app.route('/api/stop', methods=['POST'])
 def stop():
+    key = ''
+    if request.authorization:
+        key = request.authorization.get('username')
+
     f = request.form
-    if not f.get('user') or not f.get('project') or not f.get('label'):
+    if not key or not f.get('user') or not f.get('label'):
         abort(400)
 
-    result = timer.stop(f['user'], f['project'], f['label'])
+    result = timer.stop(f['user'], key, f['label'])
     return jsonify(result)
 
 

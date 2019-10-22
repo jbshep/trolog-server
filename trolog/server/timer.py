@@ -7,12 +7,12 @@ class TimerProxy:
             'key': 'xyz123'
         }
 
-    def start(self, user, project, label):
+    def start(self, user, project_key, label):
         return {
             'result': 'ok'
         }
         
-    def stop(self, user, project, label):
+    def stop(self, user, project_key, label):
         return {
             'result': 'error',
             'type': 'no_start',  # other valid error type is 'dup_start'
