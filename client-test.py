@@ -36,14 +36,16 @@ def correct_init():
                                 'user': 'jbshep',
                                 'project': 'laketech',
                            })
-    print(result.json())
+    r = result.json()
+    print(r)
+    return r['key']
 
 
 def bogus_start_no_key():
     print('Bogus /api/start, missing BasicAuth user key')
 
     result = requests.post('{}/api/start'.format(base_url),
-                           #auth=HTTPBasicAuth('xyz123',''),
+                           #auth=HTTPBasicAuth('commented out',''),
                            data={
                                 'user': 'jbshep',
                                 'label': 'bugfix',
@@ -51,11 +53,11 @@ def bogus_start_no_key():
     print(result)
     
 
-def correct_start():
+def correct_start(key):
     print('Correct /api/start use:')
 
     result = requests.post('{}/api/start'.format(base_url),
-                           auth=HTTPBasicAuth('xyz123',''),
+                           auth=HTTPBasicAuth(key,''),
                            data={
                                 'user': 'jbshep',
                                 'label': 'bugfix',
@@ -63,11 +65,11 @@ def correct_start():
     print(result.json())
 
 
-def correct_stop():
+def correct_stop(key):
     print('Correct /api/stop use:')
 
     result = requests.post('{}/api/stop'.format(base_url),
-                           auth=HTTPBasicAuth('xyz123',''),
+                           auth=HTTPBasicAuth(key,''),
                            data={
                                 'user': 'jbshep',
                                 'label': 'enhancement',
@@ -79,10 +81,10 @@ def correct_stop():
 
 bogus_init()
 print('--------------')
-correct_init()
+key = correct_init()
 print('--------------')
 bogus_start_no_key()
 print('--------------')
-correct_start()
+correct_start(key)
 print('--------------')
-correct_stop()
+correct_stop(key)
