@@ -12,8 +12,6 @@ source .env
 pip install -r requirements.txt
 ```
 
-You will want to change the value of `SECRET_KEY` in `.env`.
-
 ## Run
     
 ``` 
